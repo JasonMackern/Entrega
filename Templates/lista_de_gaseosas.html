@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block Titulo %} Pizzas {% endblock %}
+
+{% block base %}
+
+{% for gaseosa in producto %}
+<div class="card" style="width: 18rem;">
+    <img src="http://www.somoselagua.com.ar//img/novedades/51.jpg" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">{{gaseosa.nombre}}</h5>
+      <p class="card-text">Su precio es: ${{gaseosa.precio}}.</p>
+        {% if gaseosa.stock == True %}
+            <p>Actualmente hay stock</p>
+        {% else %}
+            <p>Actualmente no hay stock</p>
+        {% endif %}
+      <a href="#" class="btn btn-primary">Comprar</a>
+    </div>
+  </div>
+{% endfor %}
+{% endblock %}
