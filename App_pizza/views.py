@@ -7,10 +7,24 @@ def crear_productos (request):
         context = {
             "form" : Pizza_Form()
         }
-        return render (request, "Crear_productos.html", context = context)
+        return render (request, "App_pizza/Crear_productos.html", context = context)
     elif request.method == "POST":
-        Pizzas.objects.create(nombre = request.POST["nombre"], precio = request.POST["precio"])
-        return render (request, "Crear_producto.html", context={})
+        form = Pizza_Form(request.POST)
+        if form.is_valid():
+            Pizzas.objects.create(
+                nombre=form.cleaned_data['nombre'],
+                precio=form.cleaned_data['precio'],
+                stock=form.cleaned_data['stock'],
+            )
+            context = {
+                'mensaje': 'Producto creado exitosamente'
+            }
+        else:
+            context = {
+                'form_errors': form.errors,
+                'form': Pizza_Form()
+            }
+    return render(request, 'App_pizza/Crear_productos.html', context=context)
     
 def lista_de_productos (request):
     if "Search" in request.GET:
@@ -21,4 +35,5 @@ def lista_de_productos (request):
     context = {
         "producto" : los_productos
     }
-    return render(request, "listado_de_pizzas.html", context = context)
+    return render(request, "App_pizza/listado_de_pizzas.html", context = context)
+

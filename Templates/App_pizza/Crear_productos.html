@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block Titulo %} Creacion {% endblock %}
+
+{% block base %}
+
+    {% if form %}
+        <form action="" method="POST">
+
+            {% csrf_token %}
+            <table>
+                {{form.as_table}}
+            </table>
+            <input type="submit" value= "Crear producto"> 
+        </form>
+    {% endif %}
+{% if form_errors %}
+    <h2 style="color: red;" >Errores:</h2>
+    {{form_errors}}
+{% endif %}
+{% if mensaje %}
+    <h2 style="color: green;" >{{mensaje}}</h2>
+{% endif %}
+{% endblock %}

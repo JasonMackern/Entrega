@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "App_pizza",
     "App_empanadas",
     "App_gaseosas",
+    "Usuarios",
 ]
 
 MIDDLEWARE = [
