@@ -4,21 +4,34 @@
 
 {% block Titulo %} Gaseosas {% endblock %}
 
-{% block base %}
+{% block buscador %} 
+<form class="form-inline my-2 my-lg-0" action="/App_gaseosas/listado_de_gaseosas/" method="GET">
+  <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search" name = "Search">
+  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+</form>
+{% endblock %}
 
+{% block base %}
+<h1>Listado de gaseosas</h1>
 {% for gaseosa in producto %}
-<div class="card" style="width: 18rem;">
-    <img src="http://www.somoselagua.com.ar//img/novedades/51.jpg" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">{{gaseosa.nombre}}</h5>
-      <p class="card-text">Su precio es: ${{gaseosa.precio}}.</p>
-        {% if gaseosa.stock == True %}
-            <p>Actualmente hay stock</p>
-        {% else %}
-            <p>Actualmente no hay stock</p>
-        {% endif %}
-      <a href="#" class="btn btn-primary">Comprar</a>
-    </div>
+<div class="card bg-dark text-white">
+  <img src="http://www.somoselagua.com.ar//img/novedades/51.jpg" class="card-img" alt="...">
+  <div class="card-img-overlay">
+    <h5 class="card-title">{{gaseosa.nombre}}</h5>
+    <p class="card-text">Su precio es: ${{gaseosa.precio}}</p>
+    {% if gaseosa.stock == True %}
+        <p>Actualmente hay stock</p>
+      {% else %}
+        <p>Actualmente no hay stock</p>
+      {% endif %}
+    <p class="card-text"><small class="btn btn-primary">Comprar</small></p>
+    {% if request.user.is_authenticated %}
+    {% if request.user.is_superuser %}
+    <a href="/App_gaseosas/editar/{{gaseosa.id}}/" class="btn btn-primary">Editar</a>
+    <a href="/App_gaseosas/borrar/{{gaseosa.id}}/" class="btn btn-danger">Borrar</a>
+    {% endif %}
+    {% endif %}
   </div>
+</div>
 {% endfor %}
 {% endblock %}

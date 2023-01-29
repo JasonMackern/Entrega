@@ -4,21 +4,34 @@
 
 {% block Titulo %} Empanadas {% endblock %}
 
-{% block base %}
+{% block buscador %} 
+<form class="form-inline my-2 my-lg-0" action="/App_empanadas/listado_de_empanadas/" method="GET">
+  <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search" name = "Search">
+  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+</form>
+{% endblock %}
 
+{% block base %}
+<h1>Lisatado de empanadas</h1>
 {% for empanada in producto %}
-<div class="card" style="width: 18rem;">
-    <img src="https://www.telam.com.ar/thumbs/bluesteel/advf/imagenes/2017/07/595bc4fee7533_1200.jpg" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">{{empanada.nombre}}</h5>
-      <p class="card-text">Su precio es: ${{empanada.precio}}.</p>
-        {% if empanada.stock == True %}
-            <p>Actualmente hay stock</p>
-        {% else %}
-            <p>Actualmente no hay stock</p>
-        {% endif %}
-      <a href="#" class="btn btn-primary">Comprar</a>
-    </div>
+<div class="card bg-dark text-white">
+  <img src="https://www.telam.com.ar/thumbs/bluesteel/advf/imagenes/2017/07/595bc4fee7533_1200.jpg" class="card-img" alt="...">
+  <div class="card-img-overlay">
+    <h5 class="card-title">{{empanada.nombre}}</h5>
+    <p class="card-text">Su precio es: ${{empanada.precio}}</p>
+    {% if empanada.stock == True %}
+        <p>Actualmente hay stock</p>
+      {% else %}
+        <p>Actualmente no hay stock</p>
+      {% endif %}
+    <p class="card-text"><small class="btn btn-primary">Comprar</small></p>
+    {% if request.user.is_authenticated %}
+    {% if request.user.is_superuser %}
+    <a href="/App_empanadas/editar/{{empanada.id}}/" class="btn btn-primary">Editar</a>
+    <a href="/App_empanadas/borrar/{{empanada.id}}/" class="btn btn-danger">Borrar</a>
+    {% endif %}
+    {% endif %}
   </div>
+</div>
 {% endfor %}
 {% endblock %}

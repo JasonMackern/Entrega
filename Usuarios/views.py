@@ -85,10 +85,10 @@ def actualizacion_de_usuario(request):
 def actualizar_perfil_de_usuario(request):
     user = request.user
     if request.method == 'GET':
-        form = Perfil_de_usuario(inicial={
-            'telefono':request.user.profile.telefono,
-            'fecha_de_naciemiento':request.user.profile.fecha_de_naciemiento,
-            'foto_de_perfil':request.user.profile.foto_de_perfil
+        form = Perfil_de_usuario(initial={
+            'telefono':request.user.perfil.telefono,
+            'fecha_de_nacimiento':request.user.perfil.fecha_de_nacimiento,
+            'foto_de_perfil':request.user.perfil.foto_de_perfil
         })
         context ={
             'form':form
@@ -98,14 +98,14 @@ def actualizar_perfil_de_usuario(request):
     elif request.method == 'POST':
         form = Perfil_de_usuario(request.POST, request.FILES)
         if form.is_valid():
-            user.profile.telefono = form.cleaned_data.get('telefono')
-            user.profile.fecha_de_naciemiento = form.cleaned_data.get('fecha_de_naciemiento')
-            user.profile.foto_de_perfil = form.cleaned_data.get('foto_de_perfil')
-            user.profile.save()
-            return redirect('index')
+            user.perfil.telefono = form.cleaned_data.get('telefono')
+            user.perfil.fecha_de_naciemiento = form.cleaned_data.get('fecha_de_naciemiento')
+            user.perfil.foto_de_perfil = form.cleaned_data.get('foto_de_perfil')
+            user.perfil.save()
+            return redirect('inicio')
         
         context = {
             'errores':form.errors,
             'form':Perfil_de_usuario()
         }
-        return render(request, 'Usuarios/registro.html', context=context)
+        return render(request, 'inicio.html', context=context)

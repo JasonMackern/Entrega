@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from App_pizza.models import Pizzas
 from App_pizza.forms import Pizza_Form
+from django.views.generic import DeleteView, UpdateView
 
 def crear_productos (request):
     if request.method == "GET":
@@ -37,3 +38,15 @@ def lista_de_productos (request):
     }
     return render(request, "App_pizza/listado_de_pizzas.html", context = context)
 
+class Editar_pizza (UpdateView):
+    model = Pizzas
+    fields = '__all__'
+    template_name = 'App_pizza/editar.html'
+    success_url = '/App_pizza/listado/'
+    primary_key = "pizza"
+
+class Borrar_pizza (DeleteView):
+    model = Pizzas
+    template_name = 'App_pizza/borrar.html'
+    success_url = '/App_pizza/listado/'
+    primary_key = "pizza"

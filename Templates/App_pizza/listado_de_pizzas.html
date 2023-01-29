@@ -5,20 +5,26 @@
 {% block Titulo %} Pizzas {% endblock %}
 
 {% block base %}
-
+<h1>Listado de pizzas</h1>
 {% for pizza in producto %}
-<div class="card" style="width: 18rem;">
-    <img src="https://www.lavanguardia.com/files/og_thumbnail/files/fp/uploads/2021/03/30/6063031b90a87.r_d.1083-871-0.jpeg" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">{{pizza.nombre}}</h5>
-      <p class="card-text">Su precio es: ${{pizza.precio}}.</p>
-        {% if pizza.stock == True %}
-            <p>Actualmente hay stock</p>
-        {% else %}
-            <p>Actualmente no hay stock</p>
-        {% endif %}
-      <a href="#" class="btn btn-primary">Comprar</a>
-    </div>
+<div class="card bg-dark text-white">
+  <img src="https://www.lavanguardia.com/files/og_thumbnail/files/fp/uploads/2021/03/30/6063031b90a87.r_d.1083-871-0.jpeg" class="card-img" alt="...">
+  <div class="card-img-overlay">
+    <h5 class="card-title">{{pizza.nombre}}</h5>
+    <p class="card-text">Su precio es: ${{pizza.precio}}</p>
+    {% if pizza.stock == True %}
+        <p>Actualmente hay stock</p>
+      {% else %}
+        <p>Actualmente no hay stock</p>
+      {% endif %}
+    <p class="card-text"><small class="btn btn-primary">Comprar</small></p>
+    {% if request.user.is_authenticated %}
+    {% if request.user.is_superuser %}
+    <a href="/App_pizza/editar/{{pizza.id}}/" class="btn btn-primary">Editar</a>
+    <a href="/App_pizza/borrar/{{pizza.id}}/" class="btn btn-danger">Borrar</a>
+    {% endif %}
+    {% endif %}
   </div>
-{% endfor %}
+</div>
+  {% endfor %}
 {% endblock %}

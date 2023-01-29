@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from App_gaseosas.models import Gaseosas
 from App_gaseosas.forms import Gaseosa_Form
+from django.views.generic import DeleteView, UpdateView
 
 def crear_productos (request):
     if request.method == "GET":
@@ -36,3 +37,16 @@ def lista_de_gaseosas (request):
         "producto" : los_productos
     }
     return render(request, "App_gaseosa/lista_de_gaseosas.html", context = context)
+
+class Editar_gaseosa (UpdateView):
+    model = Gaseosas
+    fields = '__all__'
+    template_name = 'App_gaseosa/editar.html'
+    success_url = '/App_gaseosas/listado_de_gaseosas/'
+    primary_key = "gaseosa"
+
+class Borrar_gaseosa (DeleteView):
+    model = Gaseosas
+    template_name = 'App_gaseosa/borrar.html'
+    success_url = '/App_gaseosas/listado_de_gaseosas/'
+    primary_key = "gaseosa"

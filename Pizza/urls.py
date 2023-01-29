@@ -15,16 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from Pizza.views import inicio
-
+from django.conf.urls.static import static
+from Pizza.settings import MEDIA_ROOT, MEDIA_URL
+from inicio.views import Listado
 
 urlpatterns = [
     
-    path("", inicio),
+    path("", Listado.as_view(), name = "inicio"),
     path('admin/', admin.site.urls),
     path("App_pizza/", include ("App_pizza.urls") ),
     path("App_empanadas/", include ("App_empanadas.urls") ),
     path("App_gaseosas/", include ("App_gaseosas.urls") ),
     path("Usuarios/", include ("Usuarios.urls") ),
 
-]
+] + static(MEDIA_URL, document_root = MEDIA_ROOT)
