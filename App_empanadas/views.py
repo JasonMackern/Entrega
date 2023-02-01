@@ -10,7 +10,7 @@ def crear_productos (request):
         }
         return render (request, "App_empanada/Crear_producto.html", context = context)
     elif request.method == "POST":
-        form = Empanada_Form(request.POST)
+        form = Empanada_Form(request.POST, request.FILES)
         if form.is_valid():
             Empanadas.objects.create(
                 nombre=form.cleaned_data['nombre'],

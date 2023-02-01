@@ -10,7 +10,7 @@ def crear_productos (request):
         }
         return render (request, "App_pizza/Crear_productos.html", context = context)
     elif request.method == "POST":
-        form = Pizza_Form(request.POST)
+        form = Pizza_Form(request.POST, request.FILES)
         if form.is_valid():
             Pizzas.objects.create(
                 nombre=form.cleaned_data['nombre'],
