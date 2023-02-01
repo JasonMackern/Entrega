@@ -16,6 +16,7 @@ def crear_productos (request):
                 nombre=form.cleaned_data['nombre'],
                 precio=form.cleaned_data['precio'],
                 stock=form.cleaned_data['stock'],
+                imagen=form.cleaned_data['imagen'],
             )
             context = {
                 'mensaje': 'Producto creado exitosamente'

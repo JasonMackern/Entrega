@@ -7,8 +7,10 @@
 {% block base %}
 <h1>Listado de pizzas</h1>
 {% for pizza in producto %}
-<div class="card bg-dark text-white">
-  <img src="https://www.lavanguardia.com/files/og_thumbnail/files/fp/uploads/2021/03/30/6063031b90a87.r_d.1083-871-0.jpeg" class="card-img" alt="...">
+<div class="card bg-dark text-dark">
+  {% if pizza.imagen %}
+  <img src="{{pizza.imagen.url}}" class="card-img" alt="...">
+  {% endif %}
   <div class="card-img-overlay">
     <h5 class="card-title">{{pizza.nombre}}</h5>
     <p class="card-text">Su precio es: ${{pizza.precio}}</p>

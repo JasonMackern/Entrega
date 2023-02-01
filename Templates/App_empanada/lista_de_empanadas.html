@@ -14,8 +14,10 @@
 {% block base %}
 <h1>Lisatado de empanadas</h1>
 {% for empanada in producto %}
-<div class="card bg-dark text-white">
-  <img src="https://www.telam.com.ar/thumbs/bluesteel/advf/imagenes/2017/07/595bc4fee7533_1200.jpg" class="card-img" alt="...">
+<div class="card bg-dark text-dark">
+  {% if empanada.imagen %}
+  <img src="{{empanada.imagen.url}}" class="card-img" alt="...">
+  {% endif %}
   <div class="card-img-overlay">
     <h5 class="card-title">{{empanada.nombre}}</h5>
     <p class="card-text">Su precio es: ${{empanada.precio}}</p>

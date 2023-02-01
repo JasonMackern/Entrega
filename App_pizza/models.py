@@ -5,6 +5,7 @@ class Pizzas (models.Model):
     nombre = models.CharField(max_length= 50, verbose_name = "nombre")
     precio = models.IntegerField(verbose_name = "precio")
     stock = models.BooleanField(default= True, verbose_name = "en stock")
+    imagen = models.ImageField(upload_to='imagen', null=True, blank=True)
 
     def __str__ (self):
         return self.nombre
